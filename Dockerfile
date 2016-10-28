@@ -39,12 +39,7 @@ RUN apt-get install -y htop nmon vnstat tcptrack bwm-ng mytop
 # Install ffmpeg, mediainfo, p7zip-full, unrar and lame.
 RUN \
   curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz | tar xfvz - -C /usr/local/bin && \
-  apt-get install -y unrar-free lame mediainfo p7zip-full \
-  # Media Info to analyse video sources and provide indexer details about bitrate and resolution
-  curl http://mediaarea.net/download/binary/libzen0/0.4.29/libzen0_0.4.29-1_amd64.xUbuntu_14.04.deb \
-  dpkg -i libzen0_0.4.29-1_amd64.xUbuntu_14.04.deb \
-  wget http://mediaarea.net/download/binary/libmediainfo0/0.7.70/libmediainfo0_0.7.70-1_amd64.xUbuntu_14.04.deb \
-  dpkg -i libmediainfo0_0.7.70-1_amd64.xUbuntu_14.04.deb
+  apt-get install -y unrar-free lame mediainfo p7zip-full
 
 # Install MariaDB.
 RUN \
