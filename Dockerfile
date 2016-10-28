@@ -7,14 +7,14 @@
 FROM phusion/baseimage:0.9.13
 
 # Set maintainer
-MAINTAINER razorgirl <https://github.com/razorgirl>
+MAINTAINER paulbarrett <https://github.com/paultbarrett/nzedb-docker>
 
 # Set correct environment variables.
 ENV TZ Australia/Sydney
 ENV HOME /root
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
+ENV LANG en_AU.UTF-8
+ENV LANGUAGE en_AU:en
+ENV LC_ALL en_AU.UTF-8
 
 # Regenerate SSH host keys.
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
@@ -28,13 +28,13 @@ RUN \
   apt-get update && \
   apt-get -y upgrade && \
   apt-get -y dist-upgrade && \
-  locale-gen en_US.UTF-8
+  locale-gen en_AU.UTF-8
 
 # Install basic software.
-RUN apt-get install -y curl git htop man software-properties-common unzip vim wget tmux ntp ntpdate time
+RUN apt-get install -y curl git htop man software-properties-common python-software-properties unzip vim wget tmux ntp ntpdate time
 
 # Install additional software.
-RUN apt-get install -y htop nmon vnstat tcptrack bwm-ng mytop
+RUN apt-get install -y htop nmon vnstat tcptrack bwm-ng mytop unrar
 
 # Install ffmpeg, mediainfo, p7zip-full, unrar and lame.
 RUN \
@@ -47,7 +47,7 @@ RUN \
   apt-get update && \
   echo "deb http://mirror.aarnet.edu.au/pub/MariaDB/repo/10.0/ubuntu trusty main" > /etc/apt/sources.list.d/mariadb.list && \
   apt-get update && \
-  apt-get install -y mariadb-server && \
+  apt-get install -y mariadb-server mariadb-client libmysqlclient-dev && \
   sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
 
 # Install Python MySQL modules.
@@ -65,13 +65,16 @@ RUN \
   pip3 list
 
 # Install PHP.
-RUN apt-get install -y php5 php5-dev php-pear php5-gd php5-mysqlnd php5-curl php5-json php5-fpm
-RUN sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5/cli/php.ini
-RUN sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/' /etc/php5/cli/php.ini
-RUN sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5/cli/php.ini
-RUN sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5/fpm/php.ini
-RUN sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/' /etc/php5/fpm/php.ini
-RUN sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5/fpm/php.ini
+RUN \
+  add-apt-repository -y ppa:ondrej/php && \
+  apt-get update && \
+  apt-get install -y php5.6 php5.6-cli php5.6-dev php5.6-json php-pear php-date php5.6-gd php5.6-mysql php5.6-pdo php5.6-curl php5.6-common php5.6-mcrypt php5.6-mbstring php5.6-xml && \
+  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5/cli/php.ini && \
+  sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/' /etc/php5/cli/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5/cli/php.ini && \
+  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5/fpm/php.ini && \
+  sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/' /etc/php5/fpm/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5/fpm/php.ini
 
 # Install simple_php_yenc_decode.
 RUN \
@@ -87,7 +90,7 @@ RUN apt-get install -y memcached php5-memcached
 
 # Install and configure nginx.
 RUN \
-  apt-get install -y nginx && \
+  apt-get install -y nginx php5-fpm && \
   echo '\ndaemon off;' >> /etc/nginx/nginx.conf && \
   chown -R www-data:www-data /var/lib/nginx && \
   mkdir -p /var/log/nginx && \
