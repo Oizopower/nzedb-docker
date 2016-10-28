@@ -1,12 +1,14 @@
 # nzedb-docker
 
+## PROPS GO TO RAZORGIRL WHO THIS WAS FORKED FROM https://github.com/razorgirl/nzedb-docker ##
+
 A Dockerfile to create a full [nZEDb](https://github.com/nZEDb/nZEDb) install in one go. It's intended to make setting up and testing nZEDb quick and painless.
 
 Based on:
 
 * Ubuntu Server 14.04 LTS
 * MariaDB 10.0
-* PHP 5.5.9
+* PHP 5.6
 * nginx/1.4.6
 
 All extras get installed, including `htop`, `nmon`, `vnstat`, `tcptrack`, `bwm-ng`, `mytop`, `memcached`, `ffmpeg` (the real one, *not* avconv), `mediainfo`, `p7zip`, `unrar` and `lame`.
@@ -42,9 +44,7 @@ For more options on running and managing Docker containers, please consult the [
 
 ## SSH Access
 
-In the former Dockerfile I tried to get things running without `ssh`, which has provento be very difficult in the case of nZEDb. I still use Docker to separate processes and services but nZEDb is a complex beast with some rather, umhhh… *interesting* code. To make things easier, I configured things to run off the [phusion-docker base image](http://phusion.github.io/baseimage-docker/). Don't let their bold claim about doing things their way to be the right way get to you. It's simply one way to do it. In this case the most convenient alternative because the resulting container largely behaves like a virtual server.
-
-There is a pre-generated SSH key set present. Of course, these keys are insecure and need to be replaced in production use. However, for development and testing, these are sufficient.
+There is a pre-generated SSH public key, update the id_rsa.pub with your own key
 
 ### Login
 
