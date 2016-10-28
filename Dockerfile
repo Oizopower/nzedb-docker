@@ -64,10 +64,10 @@ RUN \
 RUN \
   add-apt-repository -y ppa:ondrej/php && \
   apt-get update && \
-  apt-get install -y php5.6 php5.6-cli php5.6-dev php5.6-json php-pear php-date php5.6-gd php5.6-mysql php5.6-pdo php5.6-curl php5.6-common php5.6-mcrypt php5.6-mbstring php5.6-xml && \
-  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5/cli/php.ini && \
-  sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/' /etc/php5/cli/php.ini && \
-  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5/cli/php.ini && \
+  apt-get install -y php5.6 php5.6-cli php5.6-dev php5.6-json php-pear php5-fpm php-date php5.6-gd php5.6-mysql php5.6-pdo php5.6-curl php5.6-common php5.6-mcrypt php5.6-mbstring php5.6-xml && \
+  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5.6/cli/php.ini && \
+  sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/' /etc/php5.6/cli/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5.6/cli/php.ini && \
   sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5/fpm/php.ini && \
   sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/' /etc/php5/fpm/php.ini && \
   sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5/fpm/php.ini
