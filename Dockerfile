@@ -43,10 +43,6 @@ RUN \
 
 # Install MariaDB.
 RUN \
-  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0xcbcb082a1bb943db && \
-  apt-get update && \
-  echo "deb http://mirror.aarnet.edu.au/pub/MariaDB/repo/10.0/ubuntu trusty main" > /etc/apt/sources.list.d/mariadb.list && \
-  apt-get update && \
   apt-get install -y mariadb-server mariadb-client libmysqlclient-dev && \
   sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
 
