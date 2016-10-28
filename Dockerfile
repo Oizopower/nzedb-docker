@@ -39,13 +39,18 @@ RUN apt-get install -y htop nmon vnstat tcptrack bwm-ng mytop
 # Install ffmpeg, mediainfo, p7zip-full, unrar and lame.
 RUN \
   curl http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.latest.tar.gz | tar xfvz - -C /usr/local/bin && \
-  apt-get install -y unrar-free lame mediainfo p7zip-full
+  apt-get install -y unrar-free lame mediainfo p7zip-full \
+  # Media Info to analyse video sources and provide indexer details about bitrate and resolution
+  curl http://mediaarea.net/download/binary/libzen0/0.4.29/libzen0_0.4.29-1_amd64.xUbuntu_14.04.deb \
+  dpkg -i libzen0_0.4.29-1_amd64.xUbuntu_14.04.deb \
+  wget http://mediaarea.net/download/binary/libmediainfo0/0.7.70/libmediainfo0_0.7.70-1_amd64.xUbuntu_14.04.deb \
+  dpkg -i libmediainfo0_0.7.70-1_amd64.xUbuntu_14.04.deb
 
 # Install MariaDB.
 RUN \
   apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0xcbcb082a1bb943db && \
   apt-get update && \
-  echo "deb http://mirror2.hs-esslingen.de/mariadb/repo/10.0/ubuntu trusty main" > /etc/apt/sources.list.d/mariadb.list && \
+  echo "deb http://mirror.aarnet.edu.au/pub/MariaDB/repo/10.0/ubuntu trusty main" > /etc/apt/sources.list.d/mariadb.list && \
   apt-get update && \
   apt-get install -y mariadb-server && \
   sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
