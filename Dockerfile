@@ -29,11 +29,8 @@ RUN \
   apt-get -y dist-upgrade && \
   locale-gen en_AU.UTF-8
 
-# Install basic software.
-RUN apt-get install -y curl git htop man software-properties-common python-software-properties unzip vim wget tmux ntp ntpdate time
-
-# Install additional software.
-RUN apt-get install -y htop nmon vnstat tcptrack bwm-ng mytop unrar
+# Install base software.
+RUN apt-get install -y curl git htop man htop nmon vnstat tcptrack bwm-ng mytop unrar software-properties-common python-software-properties unzip vim wget tmux ntp ntpdate time
 
 # Install ffmpeg, mediainfo, p7zip-full, unrar and lame.
 RUN \
@@ -43,8 +40,12 @@ RUN \
 # Install MariaDB.
 RUN \
   apt-get install -y mariadb-server mariadb-client libmysqlclient-dev && \
+  sed -i 's/^max_allowed_packet.*/max_allowed_packet = 16M/' /etc/mysql/my.cnf
+  sed -i 's/^group_concat_max_len.*/group_concat_max_len = 8192/' /etc/mysql/my.cnf
+  sed -i 's/^key_buffer_size.*/key_buffer_size = 256M/' /etc/mysql/my.cnf
   sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
-
+  
+  
 # Install Python MySQL modules.
 RUN \
   apt-get install -y python-setuptools software-properties-common python3-setuptools python3-pip python-pip && \
