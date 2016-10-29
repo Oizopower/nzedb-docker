@@ -3,7 +3,7 @@
 #
 
 # Use baseimage-docker
-FROM phusion/baseimage:0.9.19
+FROM phusion/baseimage:0.9.13
 
 # Set maintainer
 MAINTAINER paulbarrett <https://github.com/paultbarrett/nzedb-docker>
@@ -65,31 +65,29 @@ RUN \
 RUN \
   add-apt-repository ppa:ondrej/php && \
   apt-get update && \
-  apt-get install --yes \
-    php-pear          \
-    php7.0-cli        \
-    php7.0-common     \
-    php7.0-curl       \
-    php7.0-dev        \
-    php7.0-fpm        \
-    php7.0-gd         \
-    php7.0-intl       \
-    php7.0-json       \
-    php7.0-mbstring   \
-    php7.0-mcrypt     \
-    php7.0-memcache   \
-    php7.0-mysql      \
-    php7.0-xml        \
-    php7.0-zip
+  apt-get install -y \
+  php5.6 \
+  php5.6-cli \
+  php5.6-dev \
+  php5.6-json \
+  php-pear \
+  php5.6-gd \
+  php5.6-mysql \
+  php5.6-pdo \
+  php5.6-curl \
+  php5.6-common \
+  php5.6-mcrypt \
+  php5.6-mbstring \
+  php5.6-xml
 
 # Configure PHP
 RUN \
-  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/7.0/cli/php.ini && \
-  sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/'  /etc/php/7.0/cli/php.ini && \
-  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/'  /etc/php/7.0/cli/php.ini && \
-  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/7.0/fpm/php.ini && \
-  sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/'  /etc/php/7.0/fpm/php.ini && \
-  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php/7.0/fpm/php.ini
+  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/5.6/cli/php.ini && \
+  sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/'  /etc/php/5.6/cli/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/'  /etc/php/5.6/cli/php.ini && \
+  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/5.6/fpm/php.ini && \
+  sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/'  /etc/php/5.6/fpm/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php/5.6/fpm/php.ini
 
 # Install simple_php_yenc_decode.
 RUN \
