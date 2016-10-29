@@ -93,7 +93,7 @@ RUN \
 # Install simple_php_yenc_decode.
 RUN \
   cd /tmp && \
-  git clone https://github.com/kevinlekiller/simple_php_yenc_decode && \
+  git clone https://github.com/paultbarrett/simple_php_yenc_decode.git && \
   cd simple_php_yenc_decode/ && \
   sh ubuntu.sh && \
   cd ~ && \
