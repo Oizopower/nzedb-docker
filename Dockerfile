@@ -82,7 +82,7 @@ RUN \
 
 # Configure PHP
 RUN \
-  php -i  && \
+  php -i | grep *fpm* && \
   sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/5.6/cli/php.ini && \
   sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/'  /etc/php/5.6/cli/php.ini && \
   sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/'  /etc/php/5.6/cli/php.ini && \
