@@ -95,7 +95,7 @@ RUN \
   cd /tmp && \
   git clone https://github.com/kevinlekiller/simple_php_yenc_decode.git && \
   cd simple_php_yenc_decode/source/ && \
-  apt-get install -y swig 
+  apt-get install -y swig libboost-regex-dev g++
 
 RUN \
   cd /tmp/simple_php_yenc_decode/source/ && \
