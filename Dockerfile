@@ -95,7 +95,7 @@ RUN \
   cd /tmp && \
   git clone https://github.com/paultbarrett/simple_php_yenc_decode.git && \
   cd simple_php_yenc_decode/ && \
-  apt-get install swig
+  apt-get install -y swig
   
   
 RUN swig -php -c++ yenc_decode.i
