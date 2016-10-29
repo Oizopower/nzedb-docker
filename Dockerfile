@@ -94,15 +94,12 @@ RUN \
 RUN \
   cd /tmp && \
   git clone https://github.com/paultbarrett/simple_php_yenc_decode.git && \
-  cd simple_php_yenc_decode/ && \
+  cd simple_php_yenc_decode/source/ && \
   apt-get install -y swig && \
-  cd source
-  
-  
-RUN swig -php -c++ yenc_decode.i
-RUN g++ `php-config5 --includes` -fpic -c yenc_decode_wrap.cpp
-RUN g++ -fpic -c yenc_decode.cpp -lboost_rege
-RUN g++ -shared *.o -o simple_php_yenc_decode.so -lboost_regex
+  swig -php -c++ yenc_decode.i && \
+  g++ `php-config5 --includes` -fpic -c yenc_decode_wrap.cpp && \
+  g++ -fpic -c yenc_decode.cpp -lboost_rege && \
+  g++ -shared *.o -o simple_php_yenc_decode.so -lboost_regex && \
   #sh ubuntu.sh && \
   cd ~ && \
   rm -rf /tmp/simple_php_yenc_decode/
