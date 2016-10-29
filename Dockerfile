@@ -31,7 +31,7 @@ RUN \
   locale-gen en_AU.UTF-8
 
 # Install base software.
-RUN apt-get install -y curl git htop man htop nmon vnstat tcptrack bwm-ng mytop unrar software-properties-common python-software-properties unzip vim wget tmux ntp ntpdate time
+RUN apt-get install -y curl git htop man htop nmon vnstat tcptrack bwm-ng mytop software-properties-common python-software-properties unzip vim wget tmux ntp ntpdate time
 
 # Install ffmpeg, mediainfo, p7zip-full, unrar and lame.
 RUN \
