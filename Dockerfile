@@ -82,13 +82,13 @@ RUN \
 
 # Configure PHP
 RUN \
-  ls /etc/php/ && \
-  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/cli/php.ini && \
-  sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/'  /etc/php/cli/php.ini && \
-  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/'  /etc/php/cli/php.ini && \
-  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/fpm/php.ini && \
-  sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/'  /etc/php/fpm/php.ini && \
-  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php/fpm/php.ini
+  ls -al /etc/php/ && \
+  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/5/cli/php.ini && \
+  sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/'  /etc/php/5/cli/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/'  /etc/php/5/cli/php.ini && \
+  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/5/fpm/php.ini && \
+  sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/'  /etc/php/5/fpm/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php/5/fpm/php.ini
 
 # Install simple_php_yenc_decode.
 RUN \
