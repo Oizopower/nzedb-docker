@@ -69,6 +69,7 @@ RUN \
   php5.6 \
   php5.6-cli \
   php5.6-dev \
+  php5.7-fpm \
   php5.6-json \
   php-pear \
   php5.6-gd \
