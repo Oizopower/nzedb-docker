@@ -24,14 +24,14 @@ CMD ["/sbin/my_init"]
 # Make sure system is up-to-date.
 RUN \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
-  sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirror.aarnet.edu.au/pub/ubuntu/archive/#g' /etc/apt/sources.list && \
+   
   apt-get update && \
   apt-get -y upgrade && \
   apt-get -y dist-upgrade && \
   locale-gen en_AU.UTF-8
 
 # Install base software.
-RUN apt-get install -y curl git htop man htop nmon vnstat tcptrack bwm-ng mytop software-properties-common python-software-properties unzip vim wget tmux ntp ntpdate time
+RUN apt-get install -y curl git htop man htop nmon vnstat tcptrack bwm-ng mytop unrar software-properties-common python-software-properties unzip vim wget tmux ntp ntpdate time
 
 # Install ffmpeg, mediainfo, p7zip-full, unrar and lame.
 RUN \
@@ -41,9 +41,9 @@ RUN \
 # Install MariaDB.
 RUN \
   apt-get install -y mariadb-server mariadb-client libmysqlclient-dev && \
-  sed -i 's/^max_allowed_packet.*/max_allowed_packet = 16M/' /etc/mysql/my.cnf && \
-  sed -i 's/^group_concat_max_len.*/group_concat_max_len = 8192/' /etc/mysql/my.cnf && \
-  sed -i 's/^key_buffer_size.*/key_buffer_size = 256M/' /etc/mysql/my.cnf && \
+  sed -i 's/^max_allowed_packet.*/max_allowed_packet = 16M/' /etc/mysql/my.cnf
+  sed -i 's/^group_concat_max_len.*/group_concat_max_len = 8192/' /etc/mysql/my.cnf
+  sed -i 's/^key_buffer_size.*/key_buffer_size = 256M/' /etc/mysql/my.cnf
   sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
   
   
@@ -63,21 +63,24 @@ RUN \
 
 # Install PHP.
 RUN \
+  add-apt-repository ppa:ondrej/php && \
   apt-get update && \
-  apt-get install -y \
-  php5 \
-  php5-fpm \
-  php5-common \
-  php5-mysql \
-  php5-dev \
-  php5-cli \
-  php5-mysqlnd \
-  php5-intl \
-  php5-mcrypt \
-  php5-json \
-  php5-gd \
-  php5-curl && \
-  php5enmod mcrypt
+  apt-get install --yes \
+    php-pear          \
+    php7.0-cli        \
+    php7.0-common     \
+    php7.0-curl       \
+    php7.0-dev        \
+    php7.0-fpm        \
+    php7.0-gd         \
+    php7.0-intl       \
+    php7.0-json       \
+    php7.0-mbstring   \
+    php7.0-mcrypt     \
+    php7.0-memcache   \
+    php7.0-mysql      \
+    php7.0-xml        \
+    php7.0-zip
 
 # Configure PHP
 RUN \
