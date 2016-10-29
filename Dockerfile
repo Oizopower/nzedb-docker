@@ -24,6 +24,7 @@ CMD ["/sbin/my_init"]
 # Make sure system is up-to-date.
 RUN \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
+  sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirror.aarnet.edu.au/pub/ubuntu/archive/#g' && \
   apt-get update && \
   apt-get -y upgrade && \
   apt-get -y dist-upgrade && \
