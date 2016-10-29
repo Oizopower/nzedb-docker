@@ -75,7 +75,7 @@ RUN \
   php5-gd \
   php5-mcrypt \
   php5-mysql \
-  php-json \
+  php-json
 
 # Configure PHP
 RUN \
