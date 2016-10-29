@@ -1,10 +1,9 @@
 #
 # nZEDb Dockerfile
-# Create a quick and clean dev environment
 #
 
 # Use baseimage-docker
-FROM phusion/baseimage:0.9.13
+FROM phusion/baseimage:0.9.19
 
 # Set maintainer
 MAINTAINER paulbarrett <https://github.com/paultbarrett/nzedb-docker>
@@ -62,12 +61,25 @@ RUN \
 
 # Install PHP.
 RUN \
-  add-apt-repository -y ppa:ondrej/php && \
+  add-apt-repository -y ppa:ondrej/php5-5.6 && \
   apt-get update && \
-  apt-get install -y php5.6 php5.6-cli php5.6-dev php5.6-json php-pear php5-fpm php-date php5.6-gd php5.6-mysql php5.6-pdo php5.6-curl php5.6-common php5.6-mcrypt php5.6-mbstring php5.6-xml && \
-  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5.6/cli/php.ini && \
-  sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/' /etc/php5.6/cli/php.ini && \
-  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5.6/cli/php.ini && \
+  apt-get install -y \
+  php5 \ 
+  php5-cli \
+  php5-common \
+  php5-curl \
+  php5-dev \
+  php5-fpm \
+  php5-gd \
+  php5-mcrypt \
+  php5-mysql \
+  php-json \
+
+# Configure PHP
+RUN \
+  sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5/cli/php.ini && \
+  sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/' /etc/php5/cli/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5/cli/php.ini && \
   sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php5/fpm/php.ini && \
   sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/' /etc/php5/fpm/php.ini && \
   sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php5/fpm/php.ini
@@ -101,7 +113,6 @@ RUN \
   mkdir /var/www && \
   cd /var/www && \
   git clone https://github.com/nZEDb/nZEDb.git && \
-  chmod 777 /var/www/nZEDb/libs/smarty/templates_c && \
   chown www-data:www-data nZEDb/www -R
 
 # Add services.
