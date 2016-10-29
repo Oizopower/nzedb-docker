@@ -24,7 +24,8 @@ CMD ["/sbin/my_init"]
 # Make sure system is up-to-date.
 RUN \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
-  sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirror.aarnet.edu.au/pub/ubuntu/archive/#g' /etc/apt/sources.list && \
+  sed -i 's#http://archive.ubuntu.com/ubuntu xenial#http://mirror.aarnet.edu.au/pub/ubuntu/archive trusty#g' /etc/apt/sources.list && \
+  
   apt-get update && \
   apt-get -y upgrade && \
   apt-get -y dist-upgrade && \
@@ -88,7 +89,7 @@ RUN \
   sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/'  /etc/php/7.0/cli/php.ini && \
   sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/'  /etc/php/7.0/cli/php.ini && \
   sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/7.0/fpm/php.ini && \
-  sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/'  /etc/php/7.0/php.ini && \
+  sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/'  /etc/php/7.0/fpm/php.ini && \
   sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php/7.0/fpm/php.ini
 
 # Install simple_php_yenc_decode.
