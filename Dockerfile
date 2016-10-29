@@ -63,19 +63,21 @@ RUN \
 
 # Install PHP.
 RUN \
-  add-apt-repository -y ppa:ondrej/php5-5.6 && \
   apt-get update && \
   apt-get install -y \
-  php5 \ 
-  php5-cli \
-  php5-common \
-  php5-curl \
-  php5-dev \
+  php5 \
   php5-fpm \
-  php5-gd \
-  php5-mcrypt \
+  php5-common \
   php5-mysql \
-  php-json
+  php5-dev \
+  php5-cli \
+  php5-mysqlnd \
+  php5-intl \
+  php5-mcrypt \
+  php5-json \
+  php5-gd \
+  php5-curl && \
+  php5enmod mcrypt
 
 # Configure PHP
 RUN \
