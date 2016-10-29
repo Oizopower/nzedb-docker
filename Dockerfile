@@ -25,7 +25,6 @@ CMD ["/sbin/my_init"]
 RUN \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
   sed -i 's#http://archive.ubuntu.com/ubuntu#http://mirror.aarnet.edu.au/pub/ubuntu/archive#g' /etc/apt/sources.list && \
-  sed -i 's#xenial#trusty#g' /etc/apt/sources.list && \
   apt-get update && \
   apt-get -y upgrade && \
   apt-get -y dist-upgrade && \
