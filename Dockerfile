@@ -163,9 +163,12 @@ ADD php5-fpm.sh /etc/service/php5-fpm/run
 RUN mkdir /etc/service/mariadb
 ADD mariadb.sh /etc/service/mariadb/run
 
-## Install SSH key.
+# Install SSH key.
 ADD id_rsa.pub /tmp/key.pub
 RUN cat /tmp/key.pub >> /root/.ssh/authorized_keys && rm -f /tmp/key.pub
+
+# Update SSL CA bundles
+RUN update-ca-certificates
 
 # Define mountable directories
 VOLUME ["/etc/nginx/sites-enabled", "/var/log", "/var/www/nZEDb", "/var/lib/mysql"]
