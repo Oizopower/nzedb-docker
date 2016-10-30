@@ -135,13 +135,25 @@ RUN \
   unlink /etc/nginx/sites-enabled/default && \
   ln -s /etc/nginx/sites-available/nZEDb /etc/nginx/sites-enabled/nZEDb
 
+# Install Composer
+RUN \
+  cd /tmp && \
+  php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+  php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
+  php composer-setup.php && \
+  php -r "unlink('composer-setup.php');"  && \
+  mv composer.phar /usr/local/bin/composer 
+
 # Clone nZEDb master and set directory permissions
 RUN \
   mkdir /var/www && \
   cd /var/www && \
   git clone https://github.com/nZEDb/nZEDb.git && \
-  chown www-data:www-data nZEDb/www -R
-
+  chown www-data:www-data nZEDb/www -R && \
+  cd /var/www/nZEDb && \
+  composer install --no-dev --prefer-source
+  chmod -R 777 nZEDb
+  
 # Add services.
 RUN mkdir /etc/service/nginx
 ADD nginx.sh /etc/service/nginx/run
@@ -158,7 +170,7 @@ RUN cat /tmp/key.pub >> /root/.ssh/authorized_keys && rm -f /tmp/key.pub
 VOLUME ["/etc/nginx/sites-enabled", "/var/log", "/var/www/nZEDb", "/var/lib/mysql"]
 
 # Expose ports
-EXPOSE 8800
+EXPOSE 80
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
