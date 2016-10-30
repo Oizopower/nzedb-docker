@@ -54,9 +54,9 @@ RUN \
 RUN \
   apt-get install -y mariadb-server mariadb-client libmysqlclient-dev && \
   sed -i 's/^max_allowed_packet.*/max_allowed_packet = 16M/' /etc/mysql/my.cnf && \
-  sed -i '/key_buffer.*/a group_concat_max_len = 8192/' /etc/mysql/my.cnf && \
+  sed -i '/key_buffer.*/a group_concat_max_len = 8192' /etc/mysql/my.cnf && \
   sed -i 's/^key_buffer.*/key_buffer = 256M/' /etc/mysql/my.cnf && \
-  sed -i '/key_buffer.*/a key_buffer_size = 256M/' /etc/mysql/my.cnf && \
+  sed -i '/key_buffer.*/a key_buffer_size = 256M' /etc/mysql/my.cnf && \
   sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
   
   
