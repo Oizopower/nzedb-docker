@@ -1,6 +1,6 @@
 server {
         # Change these settings to match your machine
-        listen 8800 default_server;
+        listen 80 default_server;
         server_name localhost;
 
         # These are the log locations, you should not have to change these.
