@@ -153,7 +153,7 @@ RUN \
   chown www-data:www-data nZEDb/www -R && \
   cd /var/www/nZEDb && \
   composer install --no-dev --prefer-source && \
-  chmod -R 777 nZEDb
+  chmod -R 777 /var/www/nZEDb
   
 # Add services.
 RUN mkdir /etc/service/nginx
