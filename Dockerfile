@@ -101,8 +101,8 @@ RUN \
   sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/'  /etc/php/5.6/cli/php.ini && \
   sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/5.6/fpm/php.ini && \
   sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/'  /etc/php/5.6/fpm/php.ini && \
-  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php/5.6/fpm/php.ini
-  mkdir /run/php
+  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php/5.6/fpm/php.ini && \
+  mkdir /run/php && \
   chmod -R 777 /var/lib/php/sessions
 
 # Install simple_php_yenc_decode.
@@ -168,7 +168,11 @@ ADD id_rsa.pub /tmp/key.pub
 RUN cat /tmp/key.pub >> /root/.ssh/authorized_keys && rm -f /tmp/key.pub
 
 # Update SSL CA bundles
-RUN update-ca-certificates
+RUN \
+  update-ca-certificates && \
+  cd /etc/ssl/certs/ && \
+  wget https://curl.haxx.se/ca/cacert.pem && \
+  chmod -R 777 *
 
 # Define mountable directories
 VOLUME ["/etc/nginx/sites-enabled", "/var/log", "/var/www/nZEDb", "/var/lib/mysql"]
