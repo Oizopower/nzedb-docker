@@ -2,6 +2,11 @@
 
 PROPS GO TO RAZORGIRL WHO THIS WAS FORKED FROM https://github.com/razorgirl/nzedb-docker
 
+This has been customised for personal use and may not be relevant for anyone else
+
+
+==========================================================================================
+
 A Dockerfile to create a full [nZEDb](https://github.com/nZEDb/nZEDb) install in one go. It's intended to make setting up and testing nZEDb quick and painless.
 
 Based on:
