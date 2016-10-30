@@ -44,7 +44,7 @@ server {
 
                 # Uncomment the following line and comment the .sock line if you want to use TCP.
                 #fastcgi_pass 127.0.0.1:9000;
-                fastcgi_pass unix:/var/run/php5-fpm.sock;
+                fastcgi_pass /run/php/php5.6-fpm.sock;
 
                 # The next two lines should go in your fastcgi_params
                 fastcgi_index index.php;
