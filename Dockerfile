@@ -103,6 +103,7 @@ RUN \
   sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/'  /etc/php/5.6/fpm/php.ini && \
   sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php/5.6/fpm/php.ini
   mkdir /run/php
+  chmod -R 777 /var/lib/php/sessions
 
 # Install simple_php_yenc_decode.
 RUN \
