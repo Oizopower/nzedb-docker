@@ -18,6 +18,18 @@ ENV LC_ALL en_AU.UTF-8
 # Regenerate SSH host keys.
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
+# Configure SSH access to container
+RUN \
+  sed 's/^#Port 22/Port 22/' /etc/ssh/sshd_config && \
+  sed 's,^#HostKey /etc/ssh_host_rsa_key,HostKey /etc/ssh/ssh_host_rsa_key,' /etc/ssh/sshd_config && \
+  sed 's,^#HostKey /etc/ssh_host_dsa_key,HostKey /etc/ssh/ssh_host_dsa_key,' /etc/ssh/sshd_config && \
+  sed 's/^#LoginGraceTime 2m/LoginGraceTime 2m/' /etc/ssh/sshd_config && \
+  sed 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+  sed 's/^#StrictModes yes/StrictModes yes/' /etc/ssh/sshd_config && \
+  sed 's/^#RSAAuthentication yes/RSAAuthentication yes/' /etc/ssh/sshd_config && \
+  sed 's/^#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
+  sed 's,^#AuthorizedKeysFile.*,AuthorizedKeysFile  .ssh/authorized_keys,' /etc/ssh/sshd_config && \
+
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
