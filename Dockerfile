@@ -152,7 +152,7 @@ RUN \
   git clone https://github.com/nZEDb/nZEDb.git && \
   chown www-data:www-data nZEDb/www -R && \
   cd /var/www/nZEDb && \
-  composer install --no-dev --prefer-source
+  composer install --no-dev --prefer-source && \
   chmod -R 777 nZEDb
   
 # Add services.
