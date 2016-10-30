@@ -20,15 +20,15 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # Configure SSH access to container
 RUN \
-  sed 's/^#Port 22/Port 22/' /etc/ssh/sshd_config && \
-  sed 's,^#HostKey /etc/ssh_host_rsa_key,HostKey /etc/ssh/ssh_host_rsa_key,' /etc/ssh/sshd_config && \
-  sed 's,^#HostKey /etc/ssh_host_dsa_key,HostKey /etc/ssh/ssh_host_dsa_key,' /etc/ssh/sshd_config && \
-  sed 's/^#LoginGraceTime 2m/LoginGraceTime 2m/' /etc/ssh/sshd_config && \
-  sed 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
-  sed 's/^#StrictModes yes/StrictModes yes/' /etc/ssh/sshd_config && \
-  sed 's/^#RSAAuthentication yes/RSAAuthentication yes/' /etc/ssh/sshd_config && \
-  sed 's/^#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
-  sed 's,^#AuthorizedKeysFile.*,AuthorizedKeysFile  .ssh/authorized_keys,' /etc/ssh/sshd_config && \
+  sed -i 's/^#Port 22/Port 22/' /etc/ssh/sshd_config && \
+  sed -i 's,^#HostKey /etc/ssh_host_rsa_key,HostKey /etc/ssh/ssh_host_rsa_key,' /etc/ssh/sshd_config && \
+  sed -i 's,^#HostKey /etc/ssh_host_dsa_key,HostKey /etc/ssh/ssh_host_dsa_key,' /etc/ssh/sshd_config && \
+  sed -i 's/^#LoginGraceTime 2m/LoginGraceTime 2m/' /etc/ssh/sshd_config && \
+  sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+  sed -i 's/^#StrictModes yes/StrictModes yes/' /etc/ssh/sshd_config && \
+  sed -i 's/^#RSAAuthentication yes/RSAAuthentication yes/' /etc/ssh/sshd_config && \
+  sed -i 's/^#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config && \
+  sed -i 's,^#AuthorizedKeysFile.*,AuthorizedKeysFile  .ssh/authorized_keys,' /etc/ssh/sshd_config
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
@@ -54,8 +54,9 @@ RUN \
 RUN \
   apt-get install -y mariadb-server mariadb-client libmysqlclient-dev && \
   sed -i 's/^max_allowed_packet.*/max_allowed_packet = 16M/' /etc/mysql/my.cnf && \
-  sed -i 's/^group_concat_max_len.*/group_concat_max_len = 8192/' /etc/mysql/my.cnf && \
-  sed -i 's/^key_buffer_size.*/key_buffer_size = 256M/' /etc/mysql/my.cnf && \
+  sed -i '/key_buffer.*/a group_concat_max_len = 8192/' /etc/mysql/my.cnf && \
+  sed -i 's/^key_buffer.*/key_buffer = 256M/' /etc/mysql/my.cnf && \
+  sed -i '/key_buffer.*/a key_buffer_size = 256M/' /etc/mysql/my.cnf && \
   sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf
   
   
