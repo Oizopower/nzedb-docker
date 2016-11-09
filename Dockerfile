@@ -9,11 +9,11 @@ FROM phusion/baseimage:0.9.13
 MAINTAINER paulbarrett <https://github.com/paultbarrett/nzedb-docker>
 
 # Set correct environment variables.
-ENV TZ Australia/Sydney
+ENV TZ Europe/Amsterdam
 ENV HOME /root
-ENV LANG en_AU.UTF-8
-ENV LANGUAGE en_AU:en
-ENV LC_ALL en_AU.UTF-8
+ENV LANG nl_NL.UTF-8
+ENV LANGUAGE nl_NL:nl
+ENV LC_ALL nl_NL.UTF-8
 
 # Regenerate SSH host keys.
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
@@ -99,10 +99,10 @@ RUN \
 RUN \
   sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/5.6/cli/php.ini && \
   sed -ri 's/(memory_limit =) ([0-9]+)/\1 -1/'  /etc/php/5.6/cli/php.ini && \
-  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/'  /etc/php/5.6/cli/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Europe\/Amsterdam/'  /etc/php/5.6/cli/php.ini && \
   sed -ri 's/(max_execution_time =) ([0-9]+)/\1 120/' /etc/php/5.6/fpm/php.ini && \
   sed -ri 's/(memory_limit =) ([0-9]+)/\1 1024/'  /etc/php/5.6/fpm/php.ini && \
-  sed -ri 's/;(date.timezone =)/\1 Australia\/Sydney/' /etc/php/5.6/fpm/php.ini && \
+  sed -ri 's/;(date.timezone =)/\1 Europe\/Amsterdam/' /etc/php/5.6/fpm/php.ini && \
   mkdir /run/php && \
   chmod -R 777 /var/lib/php/sessions && \
   sed -i 's/^listen =.*/listen = 127.0.0.1:9000/' /etc/php/5.6/fpm/pool.d/www.conf && \
