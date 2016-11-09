@@ -11,9 +11,9 @@ MAINTAINER paulbarrett <https://github.com/paultbarrett/nzedb-docker>
 # Set correct environment variables.
 ENV TZ Europe/Amsterdam
 ENV HOME /root
-ENV LANG nl_NL.UTF-8
-ENV LANGUAGE nl_NL:nl
-ENV LC_ALL nl_NL.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # Regenerate SSH host keys.
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
