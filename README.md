@@ -6,6 +6,11 @@ This has been customised for personal use and may not be relevant for anyone els
 
 
 ==========================================================================================
+### Create
+
+```bash
+docker build --tag nzedb/master .
+```
 
 ### Run
 
