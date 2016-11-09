@@ -92,7 +92,8 @@ RUN \
   php5.6-common \
   php5.6-mcrypt \
   php5.6-mbstring \
-  php5.6-xml
+  php5.6-xml \
+  php-imagick
 
 # Configure PHP
 RUN \
@@ -142,7 +143,6 @@ RUN \
 RUN \
   cd /tmp && \
   php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
-  php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
   php composer-setup.php && \
   php -r "unlink('composer-setup.php');"  && \
   mv composer.phar /usr/local/bin/composer 
@@ -151,8 +151,8 @@ RUN \
 RUN \
   mkdir /var/www && \
   cd /var/www && \
-  git clone https://github.com/nZEDb/nZEDb.git && \
-  chown www-data:www-data nZEDb/www -R && \
+  git clone https://github.com/nZEDb/nZEDb.git /var/www/nZEDb && \
+  chown www-data:www-data /var/www/nZEDb/www -R && \
   cd /var/www/nZEDb && \
   composer install --no-dev --prefer-source && \
   chmod -R 777 /var/www/nZEDb
